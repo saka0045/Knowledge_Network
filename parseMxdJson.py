@@ -1,6 +1,7 @@
 import json
 import argparse
 import os
+from bs4 import BeautifulSoup
 
 
 def main():
@@ -85,11 +86,14 @@ def extract_mxd_data(json_data, entry):
     penetrance = ""
     mechanism = ""
     try:
-        associationCuratorSummary = json_data[entry]["note"]
-        # Can't pull comments with the latest example from Eric, disabling this for now
-        associationCuratorSummary = ""
-        # Escape any "," in the note
-        # associationCuratorSummary = "\"" + associationCuratorSummary + "\""
+        html_text = json_data[entry]["note"]
+        # Convert the html to a text
+        associationCuratorSummary = BeautifulSoup(html_text, features="lxml")
+        associationCuratorSummary = associationCuratorSummary.get_text()
+        # Escape any double quotes in the comment
+        associationCuratorSummary = associationCuratorSummary.replace("\"", "\"\"")
+        # Escape any "," in the comment by surrounding the entire comment with double quotes
+        associationCuratorSummary = "\"" + associationCuratorSummary + "\""
     except KeyError:
         associationCuratorSummary = ""
     except TypeError:
