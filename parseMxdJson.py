@@ -130,9 +130,10 @@ def extract_mxd_data(json_data, entry):
     geneSymbol = [gene.replace(gene, gene.upper()) for gene in geneSymbol]
     transcriptId = json_data[entry]["additionalDetails"]["transcript"]
     multipleDiseases = ""
-    diseaseName = ""
-    diseaseOntologyGroup = ""
-    diseaseOntologyGroupId = ""
+    # Using the generic "Disease (disorder)" for disease name since there are no entries in MXD
+    diseaseName = "Disease (disorder)"
+    diseaseOntologyGroup = "SNOMEDCT"
+    diseaseOntologyGroupId = "64572001"
     evidenceType = "Miscellaneous"
     supportType = "Not Selected"
     evidenceStrength = "Not Selected"
