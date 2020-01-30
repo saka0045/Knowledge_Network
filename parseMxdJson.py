@@ -153,6 +153,8 @@ def extract_mxd_data(json_data, entry):
         associationCuratorSummary = associationCuratorSummary.replace("\"", "\"\"")
         # Escape any "," in the comment by surrounding the entire comment with double quotes
         associationCuratorSummary = "\"" + associationCuratorSummary + "\""
+        # Replace new line characters
+        associationCuratorSummary = associationCuratorSummary.replace("\n", "")
     except KeyError:
         associationCuratorSummary = ""
     except TypeError:
